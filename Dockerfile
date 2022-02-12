@@ -3,11 +3,14 @@ WORKDIR /
 ENV SSL_CERT_FILE=/usr/lib/ssl/certs/ca-certificates.crt
 SHELL ["/bin/bash", "-c"]
 
-# 1) Avahi configuration
-# 2) entrypoint construction
-RUN echo $'\
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends -o \
+        Dpkg::Options::="--force-confnew" \
+        vim screen libnss-mdns && \
+     echo $'\
 [server]\n\
 host-name=urrobot\n\
+
 use-ipv4=yes\n\
 enable-dbus=no\n\
 allow-interfaces=wlan0\n\
@@ -22,4 +25,16 @@ publish-workstation=no\n\
 \n\
 [reflector]\n\
 \n\
-[rlimits]\n' > /etc/avahi/avahi-daemon.conf
+[rlimits]\n' > /etc/avahi/avahi-daemon.conf && \
+    echo $'\
+#!/bin/bash\n\
+main(){\n\
+service avahi-daemon restart\n\
+export ROS_MASTER_URI=http://smart_app.local:11311\n\
+export ROS_IP=robot.local\n\
+source /opt/ros/noetic/setup.bash\n\
+roslaunch ur_calibration calibration_correction.launch \\\n\
+            robot_ip:=192.169.1.2 target_filename:=/calibration.yaml \n\
+bash \n\
+}\n\
+main $@' > /entrypoint.bash
