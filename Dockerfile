@@ -31,7 +31,7 @@ publish-workstation=no\n\
 main(){\n\
 service avahi-daemon restart\n\
 export ROS_MASTER_URI=http://smart_app.local:11311\n\
-export ROS_IP=robot.local\n\
+export ROS_IP=urrobot.local\n\
 source /opt/ros/noetic/setup.bash\n\
 roslaunch --wait ur_calibration calibration_correction.launch \\\n\
             robot_ip:=192.169.1.2 target_filename:=/calibration.yaml \n\
