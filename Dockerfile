@@ -38,3 +38,4 @@ roslaunch --wait ur_calibration calibration_correction.launch \\\n\
 bash \n\
 }\n\
 main $@' > /entrypoint.bash
+ENTRYPOINT ["bash", "/entrypoint.bash"]
