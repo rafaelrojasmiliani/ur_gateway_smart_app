@@ -22,4 +22,4 @@ publish-workstation=no\n\
 \n\
 [reflector]\n\
 \n\
-[rlimits]\n\' > /etc/avahi/avahi-daemon.conf
+[rlimits]\n' > /etc/avahi/avahi-daemon.conf
