@@ -13,8 +13,6 @@ host-name=urrobot\n\
 
 use-ipv4=yes\n\
 enable-dbus=no\n\
-allow-interfaces=wlan0\n\
-deny-interfaces=eth0\n\
 ratelimit-interval-usec=1000000\n\
 ratelimit-burst=1000\n\
 [wide-area]\n\
