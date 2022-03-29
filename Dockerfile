@@ -30,7 +30,7 @@ publish-workstation=no\n\
 #!/bin/bash\n\
 main(){\n\
 echo [server] >> /etc/avahi/avahi-daemon.conf\n\
-echo allow-interfaces=$(ip --brief a l | grep brwifi | awk \'{print $1}\') >> /etc/avahi/avahi-daemon.conf\n\
+echo allow-interfaces=$(ip --brief a l | grep brwifi | awk \'{print $1}\' | sed \'s/@.*//\') >> /etc/avahi/avahi-daemon.conf\n\
 service ssh start\n\
 service avahi-daemon restart\n\
 source /opt/ros/noetic/setup.bash\n\
