@@ -10,7 +10,6 @@ RUN apt-get update && \
      echo $'\
 [server]\n\
 host-name=urrobot\n\
-
 use-ipv4=yes\n\
 enable-dbus=no\n\
 ratelimit-interval-usec=1000000\n\
@@ -37,6 +36,9 @@ export ROS_MASTER_URI=http://smart_app.local:11311\n\
 export ROS_IP=urrobot.local\n\
 roslaunch --wait ur_calibration calibration_correction.launch \\\n\
             robot_ip:=192.169.1.2 target_filename:=/calibration.yaml \n\
+
+echo [server] >> /etc/avahi/avahi-daemon.conf\n\
+echo allow-interfaces=$(ip --brief a l | grep brwifi | awk \'{print $1}\') >> /etc/avahi/avahi-daemon.conf\n\
 export ROS_NAMESPACE=/smart_app/ur \n\
 roslaunch \\\n\
             ur_robot_driver ur3_bringup.launch \\\n\
