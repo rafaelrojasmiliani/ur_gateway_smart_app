@@ -23,14 +23,16 @@ publish-workstation=no\n\
 \n\
 [reflector]\n\
 \n\
-[rlimits]\n' > /etc/avahi/avahi-daemon.conf && \
-    echo $'\
+[rlimits]\n' > /etc/avahi/avahi-daemon.conf \
+    && echo source /opt/ros/noetic/setup.bash >> /etc/bash.bashrc \
+    && echo export ROS_MASTER_URI=http://smart_app.local:11311 >> /etc/bash.bashrc \
+    && echo export ROS_IP=urrobot.local >> /etc/bash.bashrc \
+    && echo $'\
 #!/bin/bash\n\
 main(){\n\
+service ssh start\n\
 service avahi-daemon restart\n\
-export ROS_MASTER_URI=http://smart_app.local:11311\n\
-export ROS_IP=urrobot.local\n\
-source /opt/ros/noetic/setup.bash\n\
+sleep 0.5\n\
 roslaunch --wait ur_calibration calibration_correction.launch \\\n\
             robot_ip:=192.169.1.2 target_filename:=/calibration.yaml \n\
 export ROS_NAMESPACE=/smart_app/ur \n\
