@@ -29,6 +29,8 @@ publish-workstation=no\n\
     && echo $'\
 #!/bin/bash\n\
 main(){\n\
+echo [server] >> /etc/avahi/avahi-daemon.conf\n\
+echo allow-interfaces=$(ip --brief a l | grep brwifi | awk \'{print $1}\') >> /etc/avahi/avahi-daemon.conf\n\
 service ssh start\n\
 service avahi-daemon restart\n\
 source /opt/ros/noetic/setup.bash\n\
@@ -37,8 +39,6 @@ export ROS_IP=urrobot.local\n\
 roslaunch --wait ur_calibration calibration_correction.launch \\\n\
             robot_ip:=192.169.1.2 target_filename:=/calibration.yaml \n\
 
-echo [server] >> /etc/avahi/avahi-daemon.conf\n\
-echo allow-interfaces=$(ip --brief a l | grep brwifi | awk \'{print $1}\') >> /etc/avahi/avahi-daemon.conf\n\
 export ROS_NAMESPACE=/smart_app/ur \n\
 roslaunch \\\n\
             ur_robot_driver ur3_bringup.launch \\\n\
