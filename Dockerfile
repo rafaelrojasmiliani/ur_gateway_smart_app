@@ -38,7 +38,7 @@ export ROS_IP=urrobot.local\n\
 roslaunch --wait ur_calibration calibration_correction.launch \\\n\
             robot_ip:=192.169.1.2 target_filename:=/calibration.yaml \n\
 export ROS_NAMESPACE=/smart_app/ur \n\
-screen -S ur_control -d -m roslaunch \\\n\
+roslaunch \\\n\
             ur_robot_driver ur3_bringup.launch \\\n\
             robot_ip:=192.169.1.2 kinematics_config:=/calibration.yaml\\\n\
             controllers:=\'joint_state_controller pos_joint_traj_controller\'\\\n\
